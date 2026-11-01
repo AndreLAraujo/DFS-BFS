@@ -40,3 +40,10 @@ O script Python disponibilizado neste repositório implementa os dois algoritmos
 3. **Comportamento da DFS:** Ao iniciar em `A`, a função recursiva e a pilha de chamadas (*call stack*) forçam o mergulho. O console imprimirá `['A', 'B', 'D', 'E', 'C', 'F']`. O algoritmo desce de `A` para `B`, mergulha até `D`, sofre um *backtracking* porque `D` não tem vizinhos novos, explora `E`, e só então retorna ao topo para explorar `C` e `F`.
 
 *Nota para Produção:* Este script está otimizado para fins didáticos (retorna a ordem completa de visitação). Num cenário real de roteamento ou segurança, seria inserida uma condicional de paragem imediata (ex: `if atual == alvo:`) assim que o nó desejado fosse encontrado, poupando recursos de processamento.
+
+## Validação de Resultados (Oráculo de Teste)
+
+Para garantir a corretude matemática da implementação da BFS em encontrar o menor caminho, este repositório inclui um script de validação isolado na pasta `validacao/` utilizando o **Algoritmo de Dijkstra**.
+
+*   **Motivo da Escolha:** Enquanto a BFS encontra o menor caminho por quantidade de saltos (níveis) em grafos não-ponderados, o algoritmo de Dijkstra encontra o caminho de custo mínimo em grafos ponderados. Ao tratarmos cada aresta do nosso grafo com peso igual a 1, o resultado de Dijkstra deve ser rigorosamente idêntico ao número de saltos da BFS.
+*   **Conclusão:** O uso de Dijkstra serve como um **Oráculo de Teste** (Baseline/Ground Truth). A execução deste script confirma matematicamente que a fila FIFO da BFS explorou a topologia de forma correta e ótima, atestando a confiabilidade do código principal.
