@@ -1,0 +1,40 @@
+import heapq
+
+def dijkstra(grafo, inicio):
+    distancias = {vertice: float('inf') for vertice in grafo}
+    distancias[inicio] = 0
+    
+    fila_prioridade = [(0, inicio)]
+    
+    while fila_prioridade:
+        dist_atual, vertice_atual = heapq.heappop(fila_prioridade)
+        
+        if dist_atual > distancias[vertice_atual]:
+            continue
+            
+        for vizinho in grafo[vertice_atual]:
+            distancia = dist_atual + 1
+            
+            if distancia < distancias[vizinho]:
+                distancias[vizinho] = distancia
+                heapq.heappush(fila_prioridade, (distancia, vizinho))
+                
+    return distancias
+
+# Grafo de Teste 
+grafo = {
+    'A': ['B', 'C'],
+    'B': ['A', 'D', 'E'],
+    'C': ['A', 'F'],
+    'D': ['B'],
+    'E': ['B'],
+    'F': ['C']
+}
+
+print("=== Validação de Menor Caminho (Algoritmo de Referência) ===")
+print("Grafo analisado a partir do nó 'A':")
+
+distancias_minimas = dijkstra(grafo, 'A')
+
+for vertice, distancia in distancias_minimas.items():
+    print(f"Distância mínima de A até {vertice}: {distancia} salto(s)")
